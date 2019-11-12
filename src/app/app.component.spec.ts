@@ -1,5 +1,9 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { RouterTestingModule } from '@angular/router/testing'
+import { By } from '@angular/platform-browser';
+import { RouterOutlet, RouterLinkWithHref } from '@angular/router';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -7,6 +11,10 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent
       ],
+      imports: [
+        RouterTestingModule.withRoutes([])
+      ],
+      schemas: [ NO_ERRORS_SCHEMA ]
     }).compileComponents();
   }));
 
@@ -21,11 +29,16 @@ describe('AppComponent', () => {
     const app = fixture.debugElement.componentInstance;
     expect(app.title).toEqual('pruebas-angular');
   });
-
-  it('should render title in a h1 tag', () => {
+  
+  it('Debe tener un router-outlet', () => {
     const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to pruebas-angular!');
+    const debugElement = fixture.debugElement.query(By.directive(RouterOutlet));
+    
+    expect(debugElement).not.toBeNull();
+    
   });
+  
+  
+
+
 });
